@@ -9,7 +9,7 @@
     let isHost = false;
 
     onMount(() => {
-        const socket = io("http://localhost:3000");
+        const socket = io("https://vidhost.kurizu.repl.co");
 
         socket.on("hostConnected", () => {
             console.log("Host connected");
