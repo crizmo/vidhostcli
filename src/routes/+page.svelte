@@ -7,6 +7,7 @@
     import io from "socket.io-client";
 
     let isHost = false;
+    let showButtons = false;
 
     onMount(() => {
         const socket = io("https://vidhost.kurizu.repl.co");
@@ -14,14 +15,8 @@
         socket.on("hostConnected", () => {
             console.log("Host connected");
             isHost = true;
+            showButtons = true;
         });
-
-        function showButtons() {
-            const buttons = document.querySelectorAll("button");
-            buttons.forEach((button) => {
-                button.style.display = isHost ? "block" : "none";
-            });
-        }
 
         // Button event listeners
         document
@@ -168,10 +163,12 @@
 <video id="videoElement">
     <track kind="captions" />
 </video>
-<canvas id="canvasElement" style="display: none;" />
+<canvas id="canvasElement" style="display: none;"></canvas>
 
-<button id="openCameraBtn">Open Camera</button>
-<button id="closeCameraBtn">Close Camera</button>
-<button id="startRecordingBtn">Start Recording</button>
-<button id="stopRecordingBtn">Stop Recording</button>
-<button id="downloadBtn">Download Video</button>
+{#if showButtons}
+    <button id="openCameraBtn">Open Camera</button>
+    <button id="closeCameraBtn">Close Camera</button>
+    <button id="startRecordingBtn">Start Recording</button>
+    <button id="stopRecordingBtn">Stop Recording</button>
+    <button id="downloadBtn">Download Video</button>
+{/if}
